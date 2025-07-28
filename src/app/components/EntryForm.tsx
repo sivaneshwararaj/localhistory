@@ -3,13 +3,11 @@
 import React, { useState } from 'react';
 import { db } from '../lib/db';
 
-// Define the type for the component's props
 interface EntryFormProps {
     selectedDate: Date;
-    onSave: () => void; // A function that takes no arguments and returns nothing
 }
 
-const EntryForm: React.FC<EntryFormProps> = ({ selectedDate, onSave }) => {
+const EntryForm: React.FC<EntryFormProps> = ({ selectedDate }) => {
     const [content, setContent] = useState<string>('');
     const [image, setImage] = useState<File | null>(null);
 
@@ -28,19 +26,20 @@ const EntryForm: React.FC<EntryFormProps> = ({ selectedDate, onSave }) => {
 
         try {
             const dateString = selectedDate.toISOString().split('T')[0];
-            await db.entries.put({
+            // Use .add() to create a new entry. Dexie will auto-generate the 'id'.
+            await db.entries.add({
                 date: dateString,
                 content,
-                image: image || undefined, // Ensure image is not null
+                image: image || undefined,
             });
+            //alert('Entry saved!');
 
+            // Reset form fields
             setContent('');
             setImage(null);
             if (e.target instanceof HTMLFormElement) {
-                e.target.reset(); // Reset the form fields
+                e.target.reset();
             }
-            onSave();
-            //alert('Entry saved!');
         } catch (error) {
             console.error('Failed to save entry:', error);
             //alert('Error: Could not save the entry.');
@@ -48,8 +47,8 @@ const EntryForm: React.FC<EntryFormProps> = ({ selectedDate, onSave }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ marginTop: '1rem' }}>
-            <h3>New Entry for {selectedDate.toLocaleDateString()}</h3>
+        <form onSubmit={handleSubmit} style={{ marginTop: '2rem' }}>
+            <h3>Add a New Entry</h3>
             <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
