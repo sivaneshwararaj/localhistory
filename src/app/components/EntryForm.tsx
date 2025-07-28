@@ -22,7 +22,7 @@ const EntryForm: React.FC<EntryFormProps> = ({ selectedDate, onSave }) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!content.trim()) {
-            alert('Entry content cannot be empty.');
+            //alert('Entry content cannot be empty.');
             return;
         }
 
@@ -40,10 +40,10 @@ const EntryForm: React.FC<EntryFormProps> = ({ selectedDate, onSave }) => {
                 e.target.reset(); // Reset the form fields
             }
             onSave();
-            alert('Entry saved!');
+            //alert('Entry saved!');
         } catch (error) {
             console.error('Failed to save entry:', error);
-            alert('Error: Could not save the entry.');
+            //alert('Error: Could not save the entry.');
         }
     };
 

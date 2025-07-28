@@ -51,7 +51,7 @@ const DataControls: React.FC<DataControlsProps> = ({ onImport }) => {
             saveAs(blob, `diary-export-${new Date().toISOString().split('T')[0]}.json`);
         } catch (error) {
             console.error('Failed to export data:', error);
-            alert('Error exporting data.');
+            //alert('Error exporting data.');
         }
     };
 
@@ -76,11 +76,11 @@ const DataControls: React.FC<DataControlsProps> = ({ onImport }) => {
                     await db.entries.bulkAdd(entriesWithBlobs);
                 });
 
-                alert('Diary imported successfully! The page will now reload.');
+                //alert('Diary imported successfully! The page will now reload.');
                 onImport();
             } catch (error) {
                 console.error('Failed to import data:', error);
-                alert('Failed to import diary. Please check the file format.');
+                //alert('Failed to import diary. Please check the file format.');
             }
         };
         reader.readAsText(file);

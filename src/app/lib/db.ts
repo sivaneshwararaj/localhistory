@@ -1,18 +1,18 @@
 import Dexie, { type EntityTable } from 'dexie';
 import { type DiaryEntry } from './types';
 
-// Subclass Dexie to provide type safety for our tables
 class DiaryDatabase extends Dexie {
-    // 'entries' is the name of our table. We declare it with the type of its records.
     entries!: EntityTable<
         DiaryEntry,
-        'id' // Primary key type
+        'date' // The primary key is now a string ('date')
     >;
 
     constructor() {
-        super('myDiaryAppTS'); // Database name
-        this.version(1).stores({
-            entries: '++id, date', // '++id' for auto-incrementing primary key, 'date' for indexing
+        super('myDiaryAppTS');
+        // Update the schema: 'date' is now the primary key.
+        // No '++' means it is not auto-incrementing.
+        this.version(2).stores({ // Increment version to apply schema change
+            entries: 'date, content, image',
         });
     }
 }
