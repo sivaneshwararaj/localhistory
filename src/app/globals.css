@@ -1,26 +1,69 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  padding: 1rem;
+  /* Reduced padding for mobile */
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3 {
+  color: #0d1b2a;
+}
+
+/* Flex container for the main layout */
+.container {
+  display: flex;
+  flex-direction: column;
+  /* Default to column for mobile-first approach */
+  gap: 2rem;
+}
+
+.sidebar {
+  width: 100%;
+}
+
+.content {
+  width: 100%;
+}
+
+/* Styles for the calendar */
+.react-calendar {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100% !important;
+  /* Ensure it takes full width of sidebar */
+}
+
+/* Media query for larger screens (tablets and desktops) */
+@media (min-width: 768px) {
+  body {
+    padding: 2rem;
+    /* Restore larger padding */
+  }
+
+  .container {
+    flex-direction: row;
+    /* Switch to side-by-side layout */
+    align-items: flex-start;
+    /* Align items to the top */
+  }
+
+  .sidebar {
+    flex: 1;
+    min-width: 320px;
+    max-width: 400px;
+  }
+
+  .content {
+    flex: 2;
+  }
 }
